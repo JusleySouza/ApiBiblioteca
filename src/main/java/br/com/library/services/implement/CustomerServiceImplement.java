@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
@@ -16,13 +17,13 @@ import br.com.library.services.CustomerService;
 
 @Component
 public class CustomerServiceImplement implements CustomerService {
-	
+
 	@Autowired
-	 private CustomerRepository repository;
-	
+	private CustomerRepository repository;
+
 	@Autowired
 	private CustomerMapper mapper;
-	
+
 	private Customer customer;
 	private ResponseDTO responseDTO;
 
@@ -40,8 +41,11 @@ public class CustomerServiceImplement implements CustomerService {
 
 	@Override
 	public ResponseEntity<Customer> create(RequestDTO requestCustomerDTO) {
-		// TODO Auto-generated method stub
-		return null;
+		customer = mapper.toModel(requestCustomerDTO);
+		repository.save(customer);
+
+		responseDTO = mapper.modelToResponseCustomerDTO(customer);
+		return new ResponseEntity<Customer>(HttpStatus.CREATED);
 	}
 
 	@Override
