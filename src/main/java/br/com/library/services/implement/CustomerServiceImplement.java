@@ -35,8 +35,8 @@ public class CustomerServiceImplement implements CustomerService {
 
 	@Override
 	public Customer findByCpf(String cpf) {
-		// TODO Auto-generated method stub
-		return null;
+		customer = repository.findByCpf(cpf);
+		return customer;
 	}
 
 	@Override
