@@ -9,5 +9,5 @@ import br.com.library.model.Customer;
 
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, UUID> {
-
+	Customer findByCpf(String cpf);
 }
