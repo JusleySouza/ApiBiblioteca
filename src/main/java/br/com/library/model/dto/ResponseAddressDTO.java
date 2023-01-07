@@ -16,6 +16,6 @@ public class ResponseAddressDTO {
 	private String street;
 	private String neighborhood;
 	private String city;
-	private String uf;
+	private String state;
 	
 }
