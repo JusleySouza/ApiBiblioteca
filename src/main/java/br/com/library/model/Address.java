@@ -1,11 +1,7 @@
 package br.com.library.model;
 
-import java.time.LocalDate;
 import java.util.UUID;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
-import br.com.library.constants.Conf;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -37,9 +33,7 @@ public class Address {
 	private String neighborhood;
 	@Column(nullable = true )
 	private String city;
-	@DateTimeFormat(pattern = Conf.dateFormat)
-	private LocalDate created;
-	@DateTimeFormat(pattern = Conf.dateFormat)
-	private LocalDate changed;
+	@Column(nullable = true )
+	private String state;
 	
 }
