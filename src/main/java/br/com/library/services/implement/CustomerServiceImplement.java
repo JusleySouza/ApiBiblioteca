@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import br.com.library.mapper.CustomerMapper;
+import br.com.library.mapper.UpdateModel;
 import br.com.library.model.Customer;
 import br.com.library.model.dto.RequestDTO;
 import br.com.library.model.dto.ResponseDTO;
@@ -49,9 +50,12 @@ public class CustomerServiceImplement implements CustomerService {
 	}
 
 	@Override
-	public ResponseEntity<Customer> update(RequestDTO requestCustomerDTO, UUID customerId) {
-		// TODO Auto-generated method stub
-		return null;
+	public ResponseEntity<Customer> update(RequestDTO requestDTO, UUID customerId) {
+		customer = repository.findById(customerId).get();
+		customer = UpdateModel.customer(customer, requestDTO);
+		repository.save(customer);
+		responseDTO = mapper.modelToResponseCustomerDTO(customer);
+		return new ResponseEntity<Customer>(HttpStatus.NO_CONTENT);
 	}
 
 	@Override
