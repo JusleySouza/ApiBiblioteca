@@ -8,12 +8,13 @@ import org.springframework.stereotype.Service;
 
 import br.com.library.model.Customer;
 import br.com.library.model.dto.RequestDTO;
+import br.com.library.model.dto.ResponseDTO;
 
 
 @Service
 public interface CustomerService {
 	
-	public List<Customer> findAll();
+	public List<ResponseDTO> findAll();
 	
 	public Customer findByCpf(String cpf);
 
