@@ -26,6 +26,9 @@ public interface CustomerMapper {
 	})
 	Customer customerDelete(Customer customer);
 	
+	@Mappings({
+	@Mapping(target="responseAddressDTO", source = "address")
+	})
 	ResponseDTO modelToResponseCustomerDTO(Customer customer);
 	
 }
