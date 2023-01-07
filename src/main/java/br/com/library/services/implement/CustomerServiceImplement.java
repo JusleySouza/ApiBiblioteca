@@ -60,8 +60,10 @@ public class CustomerServiceImplement implements CustomerService {
 
 	@Override
 	public Customer delete(UUID id) {
-		// TODO Auto-generated method stub
-		return null;
+		customer = repository.findById(id).get();
+		customer = mapper.customerDelete(customer);
+		repository.save(customer);
+		return customer;
 	}
 
 	@Override
