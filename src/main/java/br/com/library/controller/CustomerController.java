@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.library.model.Customer;
 import br.com.library.model.dto.RequestDTO;
+import br.com.library.model.dto.ResponseDTO;
 import br.com.library.services.CustomerService;
 
 @RestController
@@ -27,8 +28,8 @@ public class CustomerController {
 	private CustomerService services;
 	
 	@GetMapping
-	public ResponseEntity<List<Customer>> listCustomers(){
-		return new ResponseEntity<List<Customer>>(services.findAll(), HttpStatus.OK);
+	public ResponseEntity<List<ResponseDTO>> listCustomers(){
+		return new ResponseEntity<List<ResponseDTO>>(services.findAll(), HttpStatus.OK);
 	}
 	
 	@PostMapping
