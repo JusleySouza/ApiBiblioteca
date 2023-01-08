@@ -25,15 +25,15 @@ public class Address {
 	private UUID id;
 	@Column(nullable = true )
 	private String street;
-	@Column(nullable = true )
+	@Column(nullable = false)
 	private String cep;
-	@Column(nullable = true )
+	@Column(nullable = false )
 	private Integer number;
 	@Column(nullable = true )
 	private String neighborhood;
-	@Column(nullable = true )
+	@Column(nullable = false )
 	private String city;
-	@Column(nullable = true )
+	@Column(nullable = false )
 	private String state;
 	
 }
