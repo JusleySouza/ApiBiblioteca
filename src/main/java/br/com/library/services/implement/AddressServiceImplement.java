@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import br.com.library.config.LoggerConfig;
 import br.com.library.exception.ResourceNotFoundException;
 import br.com.library.mapper.AddressMapper;
 import br.com.library.model.Address;
@@ -36,6 +37,9 @@ public class AddressServiceImplement implements AddressService {
 		address = mapper.toModel(viaCepDTO);
 		address.setNumber(requestDTO.getNumber());
 		address.setCep(requestDTO.getCep());
+		
+		LoggerConfig.LOGGER_ADDRESS.info("Address found successfully!!");
+		
 		return address;
 	}
 
