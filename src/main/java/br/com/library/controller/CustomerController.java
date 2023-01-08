@@ -38,8 +38,8 @@ public class CustomerController {
 	}
 	
 	@GetMapping("/{customerCpf}")
-	public ResponseEntity<Customer> findByCpf(@PathVariable("customerCpf") String customerCpf){
-		return new ResponseEntity<Customer>(services.findByCpf(customerCpf), HttpStatus.OK);
+	public ResponseEntity<ResponseDTO> findByCpf(@PathVariable("customerCpf") String customerCpf){
+		return new ResponseEntity<ResponseDTO>(services.findByCpf(customerCpf), HttpStatus.OK);
 	}
 
 	@PutMapping("/{customerId}")
@@ -52,6 +52,11 @@ public class CustomerController {
 	public ResponseEntity<Customer> delete(@PathVariable("customerId") UUID customerId){
 		services.delete(customerId);
 		return new ResponseEntity<Customer>(HttpStatus.NO_CONTENT);
+	}
+	
+	@GetMapping("/cep/{customerCep}")
+	public ResponseEntity<List<ResponseDTO>> findByCep(@PathVariable("customerCep") String customerCep){
+		return new ResponseEntity<List<ResponseDTO>>(services.findByCep(customerCep), HttpStatus.OK);
 	}
 	
 }
