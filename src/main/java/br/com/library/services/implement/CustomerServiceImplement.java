@@ -46,23 +46,25 @@ public class CustomerServiceImplement implements CustomerService {
 	}
 
 	@Override
-	public Customer findByCpf(String cpf) {
+	public ResponseDTO findByCpf(String cpf) {
 		customer = repository.findByCpf(cpf);
-		return customer;
+		responseDTO =	mapper.modelToResponseCustomerDTO(customer);
+		return responseDTO;
 	}
 
 	@Override
 	public ResponseEntity<Customer> create(RequestDTO requestCustomerDTO) {
 		customer = mapper.toModel(requestCustomerDTO);
-		customer.setAddress(address.create(requestCustomerDTO));
+		customer.setAddress(address.getAddressByViaCep(requestCustomerDTO));
 		repository.save(customer);
 		return new ResponseEntity<Customer>(HttpStatus.CREATED);
 	}
 
 	@Override
-	public ResponseEntity<Customer> update(RequestDTO requestDTO, UUID customerId) {
+	public ResponseEntity<Customer> update(RequestDTO requestCustomerDTO, UUID customerId) {
 		customer = repository.findById(customerId).get();
-		customer = UpdateModel.customer(customer, requestDTO);
+		customer = UpdateModel.customer(customer, requestCustomerDTO);
+		customer.setAddress(address.getAddressByViaCep(requestCustomerDTO));
 		repository.save(customer);
 		return new ResponseEntity<Customer>(HttpStatus.NO_CONTENT);
 	}
@@ -76,9 +78,14 @@ public class CustomerServiceImplement implements CustomerService {
 	}
 
 	@Override
-	public List<Customer> findByCep(String cep) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<ResponseDTO> findByCep(String cep) {
+		List<Customer> listCepCustomers = repository.findAllByAddressCepAndActiveTrue(cep);
+		listResponse = new ArrayList<>();
+		for (Customer customer : listCepCustomers) {
+			responseDTO =	mapper.modelToResponseCustomerDTO(customer);
+			listResponse.add(responseDTO);
+		}
+		return listResponse;		
 	}
 
 }
