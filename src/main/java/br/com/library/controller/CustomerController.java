@@ -33,7 +33,7 @@ public class CustomerController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Customer> create(@RequestBody RequestDTO requestDTO){
+	public ResponseEntity<Object> create(@RequestBody RequestDTO requestDTO){
 		return services.create(requestDTO);
 	}
 	
@@ -43,7 +43,7 @@ public class CustomerController {
 	}
 
 	@PutMapping("/{customerId}")
-	public ResponseEntity<Customer> update(@RequestBody RequestDTO requestDTO,
+	public ResponseEntity<Object> update(@RequestBody RequestDTO requestDTO,
 			@PathVariable("customerId") UUID customerId){
 		return services.update(requestDTO, customerId);
 	}
