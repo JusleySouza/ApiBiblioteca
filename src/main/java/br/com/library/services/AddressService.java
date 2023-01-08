@@ -8,6 +8,6 @@ import br.com.library.model.dto.RequestDTO;
 @Service
 public interface AddressService {
 	
-	public Address create(RequestDTO requestDTO);
+	public Address getAddressByViaCep(RequestDTO requestDTO);
 
 }
