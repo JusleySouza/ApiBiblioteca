@@ -16,7 +16,7 @@ public interface CustomerService {
 	
 	public List<ResponseDTO> findAll();
 	
-	public Customer findByCpf(String cpf);
+	public ResponseDTO findByCpf(String cpf);
 
 	public ResponseEntity<Customer> create(RequestDTO requestCustomerDTO);
 
@@ -24,6 +24,6 @@ public interface CustomerService {
 
 	public Customer delete(UUID id);
 	
-	public List<Customer> findByCep(String cep);
+	public List<ResponseDTO> findByCep(String cep);
 
 }
