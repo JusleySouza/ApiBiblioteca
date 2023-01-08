@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import br.com.library.exception.CepNotFoundException;
+import br.com.library.exception.ResourceNotFoundException;
 import br.com.library.exception.DuplicateDocumentsException;
 import br.com.library.exception.ExceptionResponse;
 import lombok.Generated;
@@ -27,7 +27,7 @@ public class CustomizeResponseEntityExceptionHandler extends ResponseEntityExcep
 		return new  ResponseEntity<>(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
-	@ExceptionHandler(CepNotFoundException.class)
+	@ExceptionHandler(ResourceNotFoundException.class)
 	public final ResponseEntity<ExceptionResponse> handleCepNotFoundExceptions(Exception exception, WebRequest request){
 		ExceptionResponse exceptionResponse = new ExceptionResponse(
 				new Date(), exception.getMessage(), request.getDescription(false));
