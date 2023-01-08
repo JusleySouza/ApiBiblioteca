@@ -12,4 +12,5 @@ import br.com.library.model.Customer;
 public interface CustomerRepository extends JpaRepository<Customer, UUID> {
 	Customer findByCpf(String cpf);
 	List<Customer> findAllByActiveTrue();
+	List<Customer> findAllByAddressCepAndActiveTrue(String cep);
 }
