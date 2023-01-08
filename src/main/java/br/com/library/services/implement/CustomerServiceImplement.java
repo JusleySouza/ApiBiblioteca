@@ -6,6 +6,8 @@ import java.util.Set;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -16,12 +18,14 @@ import br.com.library.exception.ResourceNotFoundException;
 import br.com.library.mapper.CustomerMapper;
 import br.com.library.mapper.UpdateModel;
 import br.com.library.model.Customer;
+import br.com.library.model.dto.ListCustomer;
 import br.com.library.model.dto.RequestDTO;
 import br.com.library.model.dto.ResponseDTO;
 import br.com.library.model.dto.error.ResponseError;
 import br.com.library.repository.CustomerRepository;
 import br.com.library.services.AddressService;
 import br.com.library.services.CustomerService;
+import br.com.library.services.PaginationService;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validator;
 
@@ -39,21 +43,31 @@ public class CustomerServiceImplement implements CustomerService {
 
 	@Autowired
 	private Validator validator;
+	
+	@Autowired
+	private PaginationService paginationService;
 
 	private Customer customer;
 	private ResponseDTO responseDTO;
-	List<ResponseDTO> listResponse;
+	private Page<Customer> pageListResponse;
+	private List<ResponseDTO> listResponse;
+	private ListCustomer response;
 
 	@Override
-	public List<ResponseDTO> findAll() {
-		List<Customer> listCustomer = repository.findAllByActiveTrue();
+	public ListCustomer findAll(Pageable pageable) {
 		listResponse = new ArrayList<>();
-		for (Customer customer : listCustomer) {
+		pageListResponse = repository.findAllByActiveTrue(pageable);
+
+		for (Customer customer : pageListResponse) {
 			responseDTO = mapper.modelToResponseCustomerDTO(customer);
 			listResponse.add(responseDTO);
 		}
+		
+		response = paginationService.pagination(pageListResponse, listResponse);
+		
 		LoggerConfig.LOGGER_CUSTOMER.info(" Customer List successfully executed!! ");
-		return listResponse;
+		
+		return response;
 	}
 
 	@Override
@@ -126,21 +140,24 @@ public class CustomerServiceImplement implements CustomerService {
 	}
 
 	@Override
-	public List<ResponseDTO> findByCep(String cep) {
-		List<Customer> listCepCustomers = repository.findAllByAddressCepAndActiveTrue(cep);
+	public ListCustomer findByCep(String cep, Pageable pageable) {
+		pageListResponse = repository.findAllByAddressCepAndActiveTrue(cep, pageable);
 		listResponse = new ArrayList<>();
 		
-		if(listCepCustomers.isEmpty()) {
+		if(pageListResponse.isEmpty()) {
 			LoggerConfig.LOGGER_CUSTOMER.error("No records found for this cep!!");
 			throw new ResourceNotFoundException("No records found for this cep!!");
 		}
 		
-		for (Customer customer : listCepCustomers) {
+		for (Customer customer : pageListResponse) {
 			responseDTO = mapper.modelToResponseCustomerDTO(customer);
 			listResponse.add(responseDTO);
 		}
+		
+		response = paginationService.pagination(pageListResponse, listResponse);
 		LoggerConfig.LOGGER_CUSTOMER.info(" List of Customers by cep successfully executed!! ");
-		return listResponse;
+		return response;
+	
 	}
 
 	
