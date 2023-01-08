@@ -31,7 +31,8 @@ public class AddressServiceImplement implements AddressService {
 		ViaCepDTO viaCepDTO = restTemplate.getForObject(URL + requestDTO.getCep() + PATH, ViaCepDTO.class);
 		
 		if(viaCepDTO.getErro() != null) {
-			throw new ResourceNotFoundException("Zip code not found");
+			LoggerConfig.LOGGER_ADDRESS.info("Cep not found!!");
+			throw new ResourceNotFoundException("Cep not found");
 		}
 		
 		address = mapper.toModel(viaCepDTO);
