@@ -16,6 +16,7 @@ public interface AddressMapper {
 		@Mapping(target= "city", source = "localidade"),
 		@Mapping(target= "state", source = "uf"),
 		@Mapping(target= "id", ignore= true),
+		@Mapping(target= "cep", ignore= true),
 		@Mapping(target= "number", ignore= true)
 	})
 	Address toModel(ViaCepDTO viaCepDTO);
