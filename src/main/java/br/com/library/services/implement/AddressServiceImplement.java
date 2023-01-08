@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import br.com.library.exception.CepNotFoundException;
 import br.com.library.mapper.AddressMapper;
 import br.com.library.model.Address;
 import br.com.library.model.dto.RequestDTO;
@@ -24,16 +25,17 @@ public class AddressServiceImplement implements AddressService {
 	Address address = new Address();
 
 	@Override
-	public Address create(RequestDTO requestDTO) {
+	public Address getAddressByViaCep(RequestDTO requestDTO) {
 		restTemplate = new RestTemplate();
 		ViaCepDTO viaCepDTO = restTemplate.getForObject(URL + requestDTO.getCep() + PATH, ViaCepDTO.class);
 		
 		if(viaCepDTO.getErro() != null) {
-			System.out.println("Aqui");
+			throw new CepNotFoundException("Zip code not found");
 		}
 		
 		address = mapper.toModel(viaCepDTO);
 		address.setNumber(requestDTO.getNumber());
+		address.setCep(requestDTO.getCep());
 		return address;
 	}
 
