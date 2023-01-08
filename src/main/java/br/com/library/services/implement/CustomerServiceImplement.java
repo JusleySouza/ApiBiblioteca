@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
+import br.com.library.config.LoggerConfig;
 import br.com.library.exception.DuplicateDocumentsException;
 import br.com.library.exception.ResourceNotFoundException;
 import br.com.library.mapper.CustomerMapper;
@@ -51,6 +52,7 @@ public class CustomerServiceImplement implements CustomerService {
 			responseDTO = mapper.modelToResponseCustomerDTO(customer);
 			listResponse.add(responseDTO);
 		}
+		LoggerConfig.LOGGER_CUSTOMER.info(" Customer List successfully executed!! ");
 		return listResponse;
 	}
 
@@ -59,10 +61,12 @@ public class CustomerServiceImplement implements CustomerService {
 		customer = repository.findByCpf(cpf);
 		
 		if(customer == null) {
+			LoggerConfig.LOGGER_CUSTOMER.error("No records found for this cpf!!");
 			throw new ResourceNotFoundException("No records found for this cpf!!");
 		}
 		
 		responseDTO = mapper.modelToResponseCustomerDTO(customer);
+		LoggerConfig.LOGGER_CUSTOMER.info("Customer found successfully!! ");
 		return responseDTO;
 	}
 
@@ -71,6 +75,7 @@ public class CustomerServiceImplement implements CustomerService {
 		Set<ConstraintViolation<RequestDTO>> violations = validator.validate(requestCustomerDTO);
 
 		if (!violations.isEmpty()) {
+			LoggerConfig.LOGGER_CUSTOMER.error("Validation error");
 			return new ResponseEntity<Object>(ResponseError.createFromValidations(violations),
 					HttpStatus.UNPROCESSABLE_ENTITY);
 		}
@@ -78,11 +83,13 @@ public class CustomerServiceImplement implements CustomerService {
 		
 		String message = duplicateDocumentValidator(customer);
 		if(!message.isEmpty()) {
+			LoggerConfig.LOGGER_CUSTOMER.error("Duplicate documents");
 			throw new DuplicateDocumentsException(message);
 		}
 		
 		customer.setAddress(address.getAddressByViaCep(requestCustomerDTO));
 		repository.save(customer);
+		LoggerConfig.LOGGER_CUSTOMER.info("Customer " + customer.getName() + " saved successfully!!");
 		return new ResponseEntity<Object>(HttpStatus.CREATED);
 	}
 
@@ -91,6 +98,7 @@ public class CustomerServiceImplement implements CustomerService {
 		Set<ConstraintViolation<RequestDTO>> violations = validator.validate(requestCustomerDTO);
 
 		if (!violations.isEmpty()) {
+			LoggerConfig.LOGGER_CUSTOMER.error("Validation error");
 			return new ResponseEntity<Object>(ResponseError.createFromValidations(violations),
 					HttpStatus.UNPROCESSABLE_ENTITY);
 		}
@@ -101,6 +109,7 @@ public class CustomerServiceImplement implements CustomerService {
 		customer = UpdateModel.customer(customer, requestCustomerDTO);
 		customer.setAddress(address.getAddressByViaCep(requestCustomerDTO));
 		repository.save(customer);
+		LoggerConfig.LOGGER_CUSTOMER.info("Customer data " + customer.getName() + " saved successfully!!");
 		return new ResponseEntity<Object>(HttpStatus.NO_CONTENT);
 	}
 
@@ -112,6 +121,7 @@ public class CustomerServiceImplement implements CustomerService {
 		
 		customer = mapper.customerDelete(customer);
 		repository.save(customer);
+		LoggerConfig.LOGGER_CUSTOMER.info("Customer " + customer.getName() + " deleted successfully!!");
 		return customer;
 	}
 
@@ -121,6 +131,7 @@ public class CustomerServiceImplement implements CustomerService {
 		listResponse = new ArrayList<>();
 		
 		if(listCepCustomers.isEmpty()) {
+			LoggerConfig.LOGGER_CUSTOMER.error("No records found for this cep!!");
 			throw new ResourceNotFoundException("No records found for this cep!!");
 		}
 		
@@ -128,9 +139,11 @@ public class CustomerServiceImplement implements CustomerService {
 			responseDTO = mapper.modelToResponseCustomerDTO(customer);
 			listResponse.add(responseDTO);
 		}
+		LoggerConfig.LOGGER_CUSTOMER.info(" List of Customers by cep successfully executed!! ");
 		return listResponse;
 	}
 
+	
 	private String duplicateDocumentValidator(Customer customer) {
 		String message = "";
 
