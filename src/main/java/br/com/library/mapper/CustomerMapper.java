@@ -1,34 +1,52 @@
 package br.com.library.mapper;
 
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.Mappings;
+import java.time.LocalDate;
 
 import br.com.library.model.Customer;
 import br.com.library.model.dto.RequestDTO;
 import br.com.library.model.dto.ResponseDTO;
 
-@Mapper(componentModel = "spring")
-public interface CustomerMapper {
-
-	@Mappings({
-		@Mapping(target= "created", expression = "java(java.time.LocalDate.now())"),
-		@Mapping(target= "active", expression = "java(java.lang.Boolean.TRUE)"),
-		@Mapping(target= "id", ignore= true),
-		@Mapping(target= "changed", ignore= true),
-		@Mapping(target= "address", ignore= true),
-	})
-	Customer toModel(RequestDTO requestCustomerDTO);
+public final class CustomerMapper {
 	
-	@Mappings({
-		@Mapping(target= "changed", expression = "java(java.time.LocalDate.now())"),
-		@Mapping(target= "active", expression = "java(java.lang.Boolean.FALSE)"),
-	})
-	Customer customerDelete(Customer customer);
+	public static Customer requestDTOToModel(RequestDTO requestDTO) {
+		return Customer.builder()
+				.name(requestDTO.getName())
+				.cpf(requestDTO.getCpf())
+				.phone(requestDTO.getPhone())
+				.email(requestDTO.getEmail())
+				.created(LocalDate.now())
+				.active(Boolean.TRUE)
+				.build();
+	}
 	
-	@Mappings({
-	@Mapping(target="responseAddressDTO", source = "address")
-	})
-	ResponseDTO modelToResponseCustomerDTO(Customer customer);
+	public static ResponseDTO modelToResponseDTO(Customer customer) {
+		return ResponseDTO.builder()
+				.id(customer.getId())
+				.name(customer.getName())
+				.cpf(customer.getCpf())
+				.phone(customer.getPhone())
+				.email(customer.getEmail())
+				.responseAddressDTO(AddressMapper.modelToResponseAddressDTO(customer))
+				.build();
+	}
+	
+	public static Customer customerDelete(Customer customer) {
+		customer.setActive(Boolean.FALSE);
+		customer.setChanged(LocalDate.now());
+		return customer;
+	}
+	
+	public static Customer updateCustomer(Customer customer, RequestDTO RequestDTO) {
+		return Customer.builder()
+				.name(RequestDTO.getName())
+				.cpf(RequestDTO.getCpf())
+				.phone(RequestDTO.getPhone())
+				.email(RequestDTO.getEmail())
+				.changed(LocalDate.now())
+				.id(customer.getId())
+				.created(customer.getCreated())
+				.active(customer.getActive())
+				.build();
+	}
 	
 }
