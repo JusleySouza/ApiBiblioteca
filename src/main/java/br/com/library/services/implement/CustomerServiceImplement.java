@@ -5,6 +5,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.Validator;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,7 +19,6 @@ import br.com.library.config.LoggerConfig;
 import br.com.library.exception.DuplicateDocumentsException;
 import br.com.library.exception.ResourceNotFoundException;
 import br.com.library.mapper.CustomerMapper;
-import br.com.library.mapper.UpdateModel;
 import br.com.library.model.Customer;
 import br.com.library.model.dto.ListCustomer;
 import br.com.library.model.dto.RequestDTO;
@@ -26,17 +28,12 @@ import br.com.library.repository.CustomerRepository;
 import br.com.library.services.AddressService;
 import br.com.library.services.CustomerService;
 import br.com.library.services.PaginationService;
-import jakarta.validation.ConstraintViolation;
-import jakarta.validation.Validator;
 
 @Component
 public class CustomerServiceImplement implements CustomerService {
 
 	@Autowired
 	private CustomerRepository repository;
-
-	@Autowired
-	private CustomerMapper mapper;
 
 	@Autowired
 	private AddressService address;
@@ -59,7 +56,7 @@ public class CustomerServiceImplement implements CustomerService {
 		pageListResponse = repository.findAllByActiveTrue(pageable);
 
 		for (Customer customer : pageListResponse) {
-			responseDTO = mapper.modelToResponseCustomerDTO(customer);
+			responseDTO = CustomerMapper.modelToResponseDTO(customer);
 			listResponse.add(responseDTO);
 		}
 		
@@ -79,7 +76,7 @@ public class CustomerServiceImplement implements CustomerService {
 			throw new ResourceNotFoundException("No records found for this cpf!!");
 		}
 		
-		responseDTO = mapper.modelToResponseCustomerDTO(customer);
+		responseDTO = CustomerMapper.modelToResponseDTO(customer);
 		LoggerConfig.LOGGER_CUSTOMER.info("Customer found successfully!! ");
 		return responseDTO;
 	}
@@ -93,7 +90,7 @@ public class CustomerServiceImplement implements CustomerService {
 			return new ResponseEntity<Object>(ResponseError.createFromValidations(violations),
 					HttpStatus.UNPROCESSABLE_ENTITY);
 		}
-		customer = mapper.toModel(requestCustomerDTO);
+		customer = CustomerMapper.requestDTOToModel(requestCustomerDTO);
 		
 		String message = duplicateDocumentValidator(customer);
 		if(!message.isEmpty()) {
@@ -120,7 +117,7 @@ public class CustomerServiceImplement implements CustomerService {
 		customer = repository.findById(customerId).orElseThrow(() ->
 		new ResourceNotFoundException("No records found for this id!!"));
 		
-		customer = UpdateModel.customer(customer, requestCustomerDTO);
+		customer = CustomerMapper.updateCustomer(customer, requestCustomerDTO);
 		customer.setAddress(address.getAddressByViaCep(requestCustomerDTO));
 		repository.save(customer);
 		LoggerConfig.LOGGER_CUSTOMER.info("Customer data " + customer.getName() + " saved successfully!!");
@@ -133,7 +130,7 @@ public class CustomerServiceImplement implements CustomerService {
 		new ResourceNotFoundException("No records found for this id!!")
 		);
 		
-		customer = mapper.customerDelete(customer);
+		customer = CustomerMapper.customerDelete(customer);
 		repository.save(customer);
 		LoggerConfig.LOGGER_CUSTOMER.info("Customer " + customer.getName() + " deleted successfully!!");
 		return customer;
@@ -150,7 +147,7 @@ public class CustomerServiceImplement implements CustomerService {
 		}
 		
 		for (Customer customer : pageListResponse) {
-			responseDTO = mapper.modelToResponseCustomerDTO(customer);
+			responseDTO = CustomerMapper.modelToResponseDTO(customer);
 			listResponse.add(responseDTO);
 		}
 		
