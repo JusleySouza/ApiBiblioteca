@@ -5,7 +5,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import jakarta.validation.ConstraintViolation;
+import javax.validation.ConstraintViolation;
+
 import lombok.Generated;
 import lombok.Getter;
 import lombok.Setter;
