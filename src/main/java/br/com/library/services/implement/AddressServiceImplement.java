@@ -1,6 +1,5 @@
 package br.com.library.services.implement;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -18,9 +17,6 @@ public class AddressServiceImplement implements AddressService {
 	private final String URL = "https://viacep.com.br/ws/";
 	private final String PATH = "/json/";
 	
-	@Autowired
-	private AddressMapper mapper;
-	
 	private RestTemplate restTemplate;
 	
 	Address address = new Address();
@@ -35,7 +31,7 @@ public class AddressServiceImplement implements AddressService {
 			throw new ResourceNotFoundException("Cep not found");
 		}
 		
-		address = mapper.toModel(viaCepDTO);
+		address = AddressMapper.viaCepToModel(viaCepDTO, requestDTO);
 		address.setNumber(requestDTO.getNumber());
 		address.setCep(requestDTO.getCep());
 		
