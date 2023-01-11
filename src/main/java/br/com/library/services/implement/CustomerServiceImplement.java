@@ -9,6 +9,7 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -51,6 +52,7 @@ public class CustomerServiceImplement implements CustomerService {
 	private ListCustomer response;
 
 	@Override
+	@Cacheable(cacheNames = "Customers", key = "#root.method.name")
 	public ListCustomer findAll(Pageable pageable) {
 		listResponse = new ArrayList<>();
 		pageListResponse = repository.findAllByActiveTrue(pageable);
@@ -68,6 +70,7 @@ public class CustomerServiceImplement implements CustomerService {
 	}
 
 	@Override
+	@Cacheable(cacheNames = "Customers", key = "#cpf")
 	public ResponseCustomerDTO findByCpf(String cpf) {
 		customer = repository.findByCpf(cpf);
 		
@@ -137,6 +140,7 @@ public class CustomerServiceImplement implements CustomerService {
 	}
 
 	@Override
+	@Cacheable(cacheNames = "Customers", key = "#cep")
 	public ListCustomer findByCep(String cep, Pageable pageable) {
 		pageListResponse = repository.findAllByAddressCepAndActiveTrue(cep, pageable);
 		listResponse = new ArrayList<>();
