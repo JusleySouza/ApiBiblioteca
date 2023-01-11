@@ -9,6 +9,7 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validator;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -51,6 +52,7 @@ public class EmployeeServiceImplement implements EmployeeService {
 	private ListEmployee response;
 
 	@Override
+	@Cacheable(cacheNames = "Employees", key = "#root.method.name")
 	public ListEmployee findAll(Pageable pageable) {
 		listResponse = new ArrayList<>();
 		pageListResponse = repository.findAllByActiveTrue(pageable);
@@ -68,6 +70,7 @@ public class EmployeeServiceImplement implements EmployeeService {
 	}
 
 	@Override
+	@Cacheable(cacheNames = "Employees", key = "#cpf")
 	public ResponseEmployeeDTO findByCpf(String cpf) {
 		employee = repository.findByCpf(cpf);
 
@@ -137,6 +140,7 @@ public class EmployeeServiceImplement implements EmployeeService {
 	}
 
 	@Override
+	@Cacheable(cacheNames = "Employees", key = "#cep")
 	public ListEmployee findByCep(String cep, Pageable pageable) {
 		pageListResponse = repository.findAllByAddressCepAndActiveTrue(cep, pageable);
 		listResponse = new ArrayList<>();
