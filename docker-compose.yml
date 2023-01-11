@@ -1,0 +1,39 @@
+version: '2'
+
+services:
+  app:
+    image: 'library_management'
+    build:
+      context: .
+    container_name: Library
+    ports:
+      - "8090:8090"
+    depends_on:
+      - db
+      - redis
+      
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/library
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=1234
+      - SPRING_JPA_HIBERNATE_DDL-AUTO=update
+      - SPRING_DATASOURCE_DRIVERCLASSNAME=org.postgresql.Driver
+      - SPRING_JPA_SHOW-SQL=false
+
+      - SPRING_CACHE_TYPE=redis
+      - SPRING_REDIS_HOST=redis
+      - SPRING_REDIS_PORT=6379
+      - SPRING_CACHE_REDIS_TIME-TO-LIVE=20000
+
+  db:
+    image: 'postgres:13.1-alpine'
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=1234
+      - POSTGRES_DB=library
+
+  redis:
+    image: redis
+    command: redis-server
+    ports:
+      - "6379:6379"
