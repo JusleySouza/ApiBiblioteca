@@ -33,9 +33,9 @@ public class EmployeeController {
 	@GetMapping
 	public ResponseEntity<ListEmployee> listEmployees(
 			@Min(value=1, message = "Tamanho mínimo 1.")
-			@RequestParam(value="pageSize", required = false) Integer pageSize, 
+			@RequestParam(defaultValue = "10" , value="pageSize", required = false) Integer pageSize, 
 			@Min(value=0, message = "Tamanho mínimo 0.")
-			@RequestParam(value="page", required = false) Integer page, 
+			@RequestParam(defaultValue = "0" , value="page", required = false) Integer page, 
 			@RequestParam(defaultValue = "name, DESC" , value="sortBy", required = false) String sortBy){
 		return new ResponseEntity<ListEmployee>(services.findAll(pageSize, page, sortBy), HttpStatus.OK);
 	}
@@ -65,9 +65,9 @@ public class EmployeeController {
 	@GetMapping("/cep/{employeeCep}")
 	public ResponseEntity<ListEmployee> findByCep(@PathVariable("employeeCep") String employeeCep, 
 			@Min(value=1, message = "Tamanho mínimo 1.")
-			@RequestParam(value="pageSize", required = false) Integer pageSize, 
+			@RequestParam(defaultValue = "10" , value="pageSize", required = false) Integer pageSize, 
 			@Min(value=0, message = "Tamanho mínimo 0.")
-			@RequestParam(value="page", required = false) Integer page, 
+			@RequestParam(defaultValue = "0" , value="page", required = false) Integer page, 
 			@RequestParam(defaultValue = "name, DESC" , value="sortBy", required = false) String sortBy){
 		return new ResponseEntity<ListEmployee>(services.findByCep(employeeCep, pageSize, page, sortBy), HttpStatus.OK);
 	}
