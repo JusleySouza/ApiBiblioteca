@@ -1,5 +1,6 @@
 package br.com.library.model.dto;
 
+import java.io.Serializable;
 import java.util.UUID;
 
 import lombok.AllArgsConstructor;
@@ -15,7 +16,9 @@ import lombok.ToString;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ResponseCustomerDTO {
+public class ResponseCustomerDTO implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 	
 	private UUID id;
 	private String name;
