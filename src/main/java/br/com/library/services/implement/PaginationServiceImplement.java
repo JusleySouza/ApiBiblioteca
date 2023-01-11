@@ -3,6 +3,9 @@ package br.com.library.services.implement;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
 import br.com.library.model.Customer;
@@ -59,4 +62,22 @@ public class PaginationServiceImplement implements PaginationService {
 		return listEmployee;
 	}
 
+	@Override
+	public Pageable createPagination(Integer pageSize, Integer page, String sortBy) {
+		String[] sort = sortBy.split(",");
+		String evalSort = sort[0];
+		String sortDirection = sort[1];
+		Sort.Direction evalDirection = sortDirection(sortDirection);
+		Sort sortOrderIgnoreCase = Sort.by(new Sort.Order(evalDirection, evalSort));
+		return PageRequest.of(page, pageSize,  sortOrderIgnoreCase);
+	}
+
+	private static Sort.Direction sortDirection(String sortDirection){
+		if(sortDirection.equalsIgnoreCase("DESC")) {
+			return Sort.Direction.DESC;
+		} else {
+			return Sort.Direction.ASC;
+		}
+	}
+	
 }
