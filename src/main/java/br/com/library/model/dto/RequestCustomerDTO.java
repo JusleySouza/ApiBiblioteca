@@ -18,7 +18,7 @@ import lombok.ToString;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class RequestDTO {
+public class RequestCustomerDTO {
 
 	@NotEmpty(message = "{name.not.empty}")
 	private String name;

@@ -15,7 +15,7 @@ import lombok.ToString;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ResponseDTO {
+public class ResponseCustomerDTO {
 	
 	private UUID id;
 	private String name;
