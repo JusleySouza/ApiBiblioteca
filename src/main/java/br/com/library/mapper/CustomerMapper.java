@@ -3,12 +3,12 @@ package br.com.library.mapper;
 import java.time.LocalDate;
 
 import br.com.library.model.Customer;
-import br.com.library.model.dto.RequestDTO;
-import br.com.library.model.dto.ResponseDTO;
+import br.com.library.model.dto.RequestCustomerDTO;
+import br.com.library.model.dto.ResponseCustomerDTO;
 
 public final class CustomerMapper {
 	
-	public static Customer requestDTOToModel(RequestDTO requestDTO) {
+	public static Customer requestDTOToModel(RequestCustomerDTO requestDTO) {
 		return Customer.builder()
 				.name(requestDTO.getName())
 				.cpf(requestDTO.getCpf())
@@ -19,8 +19,8 @@ public final class CustomerMapper {
 				.build();
 	}
 	
-	public static ResponseDTO modelToResponseDTO(Customer customer) {
-		return ResponseDTO.builder()
+	public static ResponseCustomerDTO modelToResponseDTO(Customer customer) {
+		return ResponseCustomerDTO.builder()
 				.id(customer.getId())
 				.name(customer.getName())
 				.cpf(customer.getCpf())
@@ -36,7 +36,7 @@ public final class CustomerMapper {
 		return customer;
 	}
 	
-	public static Customer updateCustomer(Customer customer, RequestDTO RequestDTO) {
+	public static Customer updateCustomer(Customer customer, RequestCustomerDTO RequestDTO) {
 		return Customer.builder()
 				.name(RequestDTO.getName())
 				.cpf(RequestDTO.getCpf())
