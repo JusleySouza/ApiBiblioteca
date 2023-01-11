@@ -53,7 +53,9 @@ public class EmployeeServiceImplement implements EmployeeService {
 
 	@Override
 	@Cacheable(cacheNames = "Employees", key = "#root.method.name")
-	public ListEmployee findAll(Pageable pageable) {
+	public ListEmployee findAll(Integer pageSize, Integer page, String sortBy) {
+		Pageable pageable = paginationService.createPagination(pageSize, page, sortBy);
+		
 		listResponse = new ArrayList<>();
 		pageListResponse = repository.findAllByActiveTrue(pageable);
 
@@ -141,7 +143,9 @@ public class EmployeeServiceImplement implements EmployeeService {
 
 	@Override
 	@Cacheable(cacheNames = "Employees", key = "#cep")
-	public ListEmployee findByCep(String cep, Pageable pageable) {
+	public ListEmployee findByCep(String cep, Integer pageSize, Integer page, String sortBy) {
+		Pageable pageable = paginationService.createPagination(pageSize, page, sortBy);
+		
 		pageListResponse = repository.findAllByAddressCepAndActiveTrue(cep, pageable);
 		listResponse = new ArrayList<>();
 		

@@ -53,7 +53,10 @@ public class CustomerServiceImplement implements CustomerService {
 
 	@Override
 	@Cacheable(cacheNames = "Customers", key = "#root.method.name")
-	public ListCustomer findAll(Pageable pageable) {
+	public ListCustomer findAll(Integer pageSize, Integer page, String sortBy) {
+		
+		Pageable pageable = paginationService.createPagination(pageSize, page, sortBy);
+		
 		listResponse = new ArrayList<>();
 		pageListResponse = repository.findAllByActiveTrue(pageable);
 
@@ -141,7 +144,9 @@ public class CustomerServiceImplement implements CustomerService {
 
 	@Override
 	@Cacheable(cacheNames = "Customers", key = "#cep")
-	public ListCustomer findByCep(String cep, Pageable pageable) {
+	public ListCustomer findByCep(String cep, Integer pageSize, Integer page, String sortBy) {
+		Pageable pageable = paginationService.createPagination(pageSize, page, sortBy);
+		
 		pageListResponse = repository.findAllByAddressCepAndActiveTrue(cep, pageable);
 		listResponse = new ArrayList<>();
 		
