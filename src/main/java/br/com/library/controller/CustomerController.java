@@ -2,8 +2,9 @@ package br.com.library.controller;
 
 import java.util.UUID;
 
+import javax.validation.constraints.Min;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.library.model.Customer;
@@ -29,8 +31,13 @@ public class CustomerController {
 	private CustomerService services;
 	
 	@GetMapping
-	public ResponseEntity<ListCustomer> listCustomers(Pageable pageable){
-		return new ResponseEntity<ListCustomer>(services.findAll(pageable), HttpStatus.OK);
+	public ResponseEntity<ListCustomer> listCustomers(
+			@Min(value=1, message = "Tamanho mínimo 1.")
+			@RequestParam(value="pageSize", required = false) Integer pageSize, 
+			@Min(value=0, message = "Tamanho mínimo 0.")
+			@RequestParam(value="page", required = false) Integer page, 
+			@RequestParam(defaultValue = "name, DESC" , value="sortBy", required = false) String sortBy){
+		return new ResponseEntity<ListCustomer>(services.findAll(pageSize, page, sortBy), HttpStatus.OK);
 	}
 	
 	@PostMapping
@@ -56,8 +63,13 @@ public class CustomerController {
 	}
 	
 	@GetMapping("/cep/{customerCep}")
-	public ResponseEntity<ListCustomer> findByCep(@PathVariable("customerCep") String customerCep, Pageable pageable ){
-		return new ResponseEntity<ListCustomer>(services.findByCep(customerCep, pageable), HttpStatus.OK);
+	public ResponseEntity<ListCustomer> findByCep(@PathVariable("customerCep") String customerCep,
+			@Min(value=1, message = "Tamanho mínimo 1.")
+			@RequestParam(value="pageSize", required = false) Integer pageSize, 
+			@Min(value=0, message = "Tamanho mínimo 0.")
+			@RequestParam(value="page", required = false) Integer page, 
+			@RequestParam(defaultValue = "name, DESC" , value="sortBy", required = false) String sortBy){
+		return new ResponseEntity<ListCustomer>(services.findByCep(customerCep, pageSize, page, sortBy), HttpStatus.OK);
 	}
 	
 }
