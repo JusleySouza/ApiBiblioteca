@@ -2,7 +2,6 @@ package br.com.library.services;
 
 import java.util.UUID;
 
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +14,7 @@ import br.com.library.model.dto.ResponseCustomerDTO;
 @Service
 public interface CustomerService {
 	
-	public ListCustomer findAll(Pageable pageable);
+	public ListCustomer findAll(Integer pageSize, Integer page, String sortBy);
 	
 	public ResponseCustomerDTO findByCpf(String cpf);
 
@@ -25,6 +24,6 @@ public interface CustomerService {
 
 	public Customer delete(UUID id);
 	
-	public ListCustomer findByCep(String cep, Pageable pageable);
+	public ListCustomer findByCep(String cep, Integer pageSize, Integer page, String sortBy);
 
 }
