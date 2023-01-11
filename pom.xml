@@ -11,7 +11,7 @@
 	</parent>
 	<groupId>br.com.library</groupId>
 	<artifactId>library-api</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>library-api</name>
 	<description>Library Management System</description>
 	<properties>
