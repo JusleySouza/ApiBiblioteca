@@ -21,8 +21,8 @@ import br.com.library.exception.ResourceNotFoundException;
 import br.com.library.mapper.CustomerMapper;
 import br.com.library.model.Customer;
 import br.com.library.model.dto.ListCustomer;
-import br.com.library.model.dto.RequestDTO;
-import br.com.library.model.dto.ResponseDTO;
+import br.com.library.model.dto.RequestCustomerDTO;
+import br.com.library.model.dto.ResponseCustomerDTO;
 import br.com.library.model.dto.error.ResponseError;
 import br.com.library.repository.CustomerRepository;
 import br.com.library.services.AddressService;
@@ -45,9 +45,9 @@ public class CustomerServiceImplement implements CustomerService {
 	private PaginationService paginationService;
 
 	private Customer customer;
-	private ResponseDTO responseDTO;
+	private ResponseCustomerDTO responseDTO;
 	private Page<Customer> pageListResponse;
-	private List<ResponseDTO> listResponse;
+	private List<ResponseCustomerDTO> listResponse;
 	private ListCustomer response;
 
 	@Override
@@ -60,7 +60,7 @@ public class CustomerServiceImplement implements CustomerService {
 			listResponse.add(responseDTO);
 		}
 		
-		response = paginationService.pagination(pageListResponse, listResponse);
+		response = paginationService.paginationCustomer(pageListResponse, listResponse);
 		
 		LoggerConfig.LOGGER_CUSTOMER.info(" Customer List successfully executed!! ");
 		
@@ -68,7 +68,7 @@ public class CustomerServiceImplement implements CustomerService {
 	}
 
 	@Override
-	public ResponseDTO findByCpf(String cpf) {
+	public ResponseCustomerDTO findByCpf(String cpf) {
 		customer = repository.findByCpf(cpf);
 		
 		if(customer == null) {
@@ -82,8 +82,8 @@ public class CustomerServiceImplement implements CustomerService {
 	}
 
 	@Override
-	public ResponseEntity<Object> create(RequestDTO requestCustomerDTO) {
-		Set<ConstraintViolation<RequestDTO>> violations = validator.validate(requestCustomerDTO);
+	public ResponseEntity<Object> create(RequestCustomerDTO requestCustomerDTO) {
+		Set<ConstraintViolation<RequestCustomerDTO>> violations = validator.validate(requestCustomerDTO);
 
 		if (!violations.isEmpty()) {
 			LoggerConfig.LOGGER_CUSTOMER.error("Validation error");
@@ -105,8 +105,8 @@ public class CustomerServiceImplement implements CustomerService {
 	}
 
 	@Override
-	public ResponseEntity<Object> update(RequestDTO requestCustomerDTO, UUID customerId) {
-		Set<ConstraintViolation<RequestDTO>> violations = validator.validate(requestCustomerDTO);
+	public ResponseEntity<Object> update(RequestCustomerDTO requestCustomerDTO, UUID customerId) {
+		Set<ConstraintViolation<RequestCustomerDTO>> violations = validator.validate(requestCustomerDTO);
 
 		if (!violations.isEmpty()) {
 			LoggerConfig.LOGGER_CUSTOMER.error("Validation error");
@@ -151,7 +151,7 @@ public class CustomerServiceImplement implements CustomerService {
 			listResponse.add(responseDTO);
 		}
 		
-		response = paginationService.pagination(pageListResponse, listResponse);
+		response = paginationService.paginationCustomer(pageListResponse, listResponse);
 		LoggerConfig.LOGGER_CUSTOMER.info(" List of Customers by cep successfully executed!! ");
 		return response;
 	
