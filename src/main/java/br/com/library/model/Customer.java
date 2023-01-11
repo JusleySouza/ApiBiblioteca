@@ -50,7 +50,6 @@ public class Customer {
 	@DateTimeFormat(pattern = Conf.dateFormat)
 	private LocalDate changed;
 	
-	
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "addressId")
 	private Address address;
