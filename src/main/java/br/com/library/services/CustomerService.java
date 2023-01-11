@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 
 import br.com.library.model.Customer;
 import br.com.library.model.dto.ListCustomer;
-import br.com.library.model.dto.RequestDTO;
-import br.com.library.model.dto.ResponseDTO;
+import br.com.library.model.dto.RequestCustomerDTO;
+import br.com.library.model.dto.ResponseCustomerDTO;
 
 
 @Service
@@ -17,11 +17,11 @@ public interface CustomerService {
 	
 	public ListCustomer findAll(Pageable pageable);
 	
-	public ResponseDTO findByCpf(String cpf);
+	public ResponseCustomerDTO findByCpf(String cpf);
 
-	public ResponseEntity<Object> create(RequestDTO requestCustomerDTO);
+	public ResponseEntity<Object> create(RequestCustomerDTO requestCustomerDTO);
 
-	public ResponseEntity<Object> update(RequestDTO requestCustomerDTO, UUID customerId);
+	public ResponseEntity<Object> update(RequestCustomerDTO requestCustomerDTO, UUID customerId);
 
 	public Customer delete(UUID id);
 	
