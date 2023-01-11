@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.library.model.Customer;
 import br.com.library.model.dto.ListCustomer;
-import br.com.library.model.dto.RequestDTO;
-import br.com.library.model.dto.ResponseDTO;
+import br.com.library.model.dto.RequestCustomerDTO;
+import br.com.library.model.dto.ResponseCustomerDTO;
 import br.com.library.services.CustomerService;
 
 @RestController
@@ -34,17 +34,17 @@ public class CustomerController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Object> create(@RequestBody RequestDTO requestDTO){
+	public ResponseEntity<Object> create(@RequestBody RequestCustomerDTO requestDTO){
 		return services.create(requestDTO);
 	}
 	
 	@GetMapping("/{customerCpf}")
-	public ResponseEntity<ResponseDTO> findByCpf(@PathVariable("customerCpf") String customerCpf){
-		return new ResponseEntity<ResponseDTO>(services.findByCpf(customerCpf), HttpStatus.OK);
+	public ResponseEntity<ResponseCustomerDTO> findByCpf(@PathVariable("customerCpf") String customerCpf){
+		return new ResponseEntity<ResponseCustomerDTO>(services.findByCpf(customerCpf), HttpStatus.OK);
 	}
 
 	@PutMapping("/{customerId}")
-	public ResponseEntity<Object> update(@RequestBody RequestDTO requestDTO,
+	public ResponseEntity<Object> update(@RequestBody RequestCustomerDTO requestDTO,
 			@PathVariable("customerId") UUID customerId){
 		return services.update(requestDTO, customerId);
 	}
