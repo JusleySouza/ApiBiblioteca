@@ -26,7 +26,7 @@ public final class ClassBuilder {
 		address.setNumber(56);
 		address.setState("SP");
 		address.setCep("04447-010");
-		address.setStreet("Av.Nossa Senhora do Sabará");
+		address.setStreet("Av. Nossa Senhora do Sabará");
 		address.setId(UUID.randomUUID());
 		return address;
 	}
@@ -98,8 +98,8 @@ public final class ClassBuilder {
 		ResponseCustomerDTO responseCustomerDTO = new ResponseCustomerDTO();
 		responseCustomerDTO.setName("Caio Castro");
 		responseCustomerDTO.setId(UUID.randomUUID());
-		responseCustomerDTO.setCpf("12345678965");
-		responseCustomerDTO.setPhone("1231231231");
+		responseCustomerDTO.setCpf("12365478965");
+		responseCustomerDTO.setPhone("1111111111");
 		responseCustomerDTO.setEmail("caio@castro.com");
 		responseCustomerDTO.setResponseAddressDTO(addressDTOBuilder());
 		return responseCustomerDTO;
@@ -109,7 +109,7 @@ public final class ClassBuilder {
 		ResponseEmployeeDTO responseEmployeeDTO = new ResponseEmployeeDTO();
 		responseEmployeeDTO.setName("Caio Castro");
 		responseEmployeeDTO.setId(UUID.randomUUID());
-		responseEmployeeDTO.setCpf("12345678965");
+		responseEmployeeDTO.setCpf("12365478965");
 		responseEmployeeDTO.setPhone("1231231231");
 		responseEmployeeDTO.setEmail("caio@castro.com");
 		responseEmployeeDTO.setPosition("Gerente");

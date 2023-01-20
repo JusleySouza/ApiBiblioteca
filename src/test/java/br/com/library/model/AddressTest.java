@@ -27,7 +27,7 @@ class AddressTest {
 				.city("São Paulo")
 				.neighborhood("Jardim Campo Grande")
 				.number(56)
-				.street("Av.Nossa Senhora do Sabará")
+				.street("Av. Nossa Senhora do Sabará")
 				.cep("04447-010")
 				.state("SP")
 				.id(id)
@@ -41,7 +41,7 @@ class AddressTest {
 		address.setCity("São Paulo");
 		address.setNeighborhood("Jardim Campo Grande");
 		address.setNumber(56);
-		address.setStreet("Av.Nossa Senhora do Sabará");
+		address.setStreet("Av. Nossa Senhora do Sabará");
 		address.setCep("04447-010");
 		address.setState("SP");
 		address.setId(id);

@@ -28,8 +28,8 @@ class ResponseCustomerDTOTest {
 		ResponseCustomerDTO responseCustomerDTO = ResponseCustomerDTO.builder()
 				.id(id)
 				.name("Caio Castro")
-				.cpf("12345678965")
-				.phone("1231231231")
+				.cpf("12365478965")
+				.phone("1111111111")
 				.email("caio@castro.com")
 				.responseAddressDTO(responseAddressDTO)
 				.build();
@@ -41,8 +41,8 @@ class ResponseCustomerDTOTest {
 		ResponseCustomerDTO responseCustomerDTO = new ResponseCustomerDTO();
 		responseCustomerDTO.setName("Caio Castro");
 		responseCustomerDTO.setId(id);
-		responseCustomerDTO.setCpf("12345678965");
-		responseCustomerDTO.setPhone("1231231231");
+		responseCustomerDTO.setCpf("12365478965");
+		responseCustomerDTO.setPhone("1111111111");
 		responseCustomerDTO.setEmail("caio@castro.com");
 		responseCustomerDTO.setResponseAddressDTO(responseAddressDTO);
 		assertEquals(expectedResponseCustomerDTO.toString(), responseCustomerDTO.toString());
