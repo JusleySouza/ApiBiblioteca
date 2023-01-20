@@ -110,7 +110,7 @@ public final class ClassBuilder {
 		responseEmployeeDTO.setName("Caio Castro");
 		responseEmployeeDTO.setId(UUID.randomUUID());
 		responseEmployeeDTO.setCpf("12365478965");
-		responseEmployeeDTO.setPhone("1231231231");
+		responseEmployeeDTO.setPhone("1111111111");
 		responseEmployeeDTO.setEmail("caio@castro.com");
 		responseEmployeeDTO.setPosition("Gerente");
 		responseEmployeeDTO.setResponseAddressDTO(addressDTOBuilder());

@@ -29,7 +29,7 @@ class ResponseEmployeeDTOTest {
 				.id(id)
 				.name("Caio Castro")
 				.cpf("12365478965")
-				.phone("1231231231")
+				.phone("1111111111")
 				.email("caio@castro.com")
 				.position("Gerente")
 				.responseAddressDTO(responseAddressDTO)
@@ -43,7 +43,7 @@ class ResponseEmployeeDTOTest {
 		responseEmployeeDTO.setName("Caio Castro");
 		responseEmployeeDTO.setId(id);
 		responseEmployeeDTO.setCpf("12365478965");
-		responseEmployeeDTO.setPhone("1231231231");
+		responseEmployeeDTO.setPhone("1111111111");
 		responseEmployeeDTO.setEmail("caio@castro.com");
 		responseEmployeeDTO.setPosition("Gerente");
 		responseEmployeeDTO.setResponseAddressDTO(responseAddressDTO);
