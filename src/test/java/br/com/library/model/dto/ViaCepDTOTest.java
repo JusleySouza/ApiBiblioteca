@@ -20,8 +20,8 @@ class ViaCepDTOTest {
 	void setter() {	
 		ViaCepDTO viaCepDTO = new ViaCepDTO();
 		viaCepDTO.setCep("04447-010");;
-		viaCepDTO.setLogradouro("Av. Nossa Senhora do Sabará");;
-		viaCepDTO.setBairro("Jardim Campo Grande");;
+		viaCepDTO.setLogradouro("Avenida Nossa Senhora do Sabará");;
+		viaCepDTO.setBairro("Vila Emir");;
 		viaCepDTO.setLocalidade("São Paulo");;
 		viaCepDTO.setUf("SP");;
 		viaCepDTO.setErro(false);

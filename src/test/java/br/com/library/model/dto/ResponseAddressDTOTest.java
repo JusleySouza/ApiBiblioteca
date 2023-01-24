@@ -21,8 +21,8 @@ class ResponseAddressDTOTest {
 		ResponseAddressDTO responseAddressDTO = ResponseAddressDTO.builder()
 				.cep("04447-010")
 				.number(56)
-				.street("Av. Nossa Senhora do Sabará")
-				.neighborhood("Jardim Campo Grande")
+				.street("Avenida Nossa Senhora do Sabará")
+				.neighborhood("Vila Emir")
 				.city("São Paulo")
 				.state("SP")
 				.build();
@@ -33,9 +33,9 @@ class ResponseAddressDTOTest {
 	void setter() {
 		ResponseAddressDTO responseAddressDTO = new ResponseAddressDTO();
 		responseAddressDTO.setCity("São Paulo");
-		responseAddressDTO.setNeighborhood("Jardim Campo Grande");
+		responseAddressDTO.setNeighborhood("Vila Emir");
 		responseAddressDTO.setNumber(56);
-		responseAddressDTO.setStreet("Av. Nossa Senhora do Sabará");
+		responseAddressDTO.setStreet("Avenida Nossa Senhora do Sabará");
 		responseAddressDTO.setCep("04447-010");
 		responseAddressDTO.setState("SP");
 		assertEquals(expectedResponseAddressDTO.toString(), responseAddressDTO.toString());

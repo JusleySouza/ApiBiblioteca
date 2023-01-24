@@ -22,11 +22,11 @@ public final class ClassBuilder {
 	public static Address addressBuilder() {
 		Address address = new Address();
 		address.setCity("São Paulo");
-		address.setNeighborhood("Jardim Campo Grande");
+		address.setNeighborhood("Vila Emir");
 		address.setNumber(56);
 		address.setState("SP");
 		address.setCep("04447-010");
-		address.setStreet("Av. Nossa Senhora do Sabará");
+		address.setStreet("Avenida Nossa Senhora do Sabará");
 		address.setId(UUID.randomUUID());
 		return address;
 	}
@@ -63,9 +63,9 @@ public final class ClassBuilder {
 	public static ResponseAddressDTO addressDTOBuilder() {
 		ResponseAddressDTO responseAddressDTO = new ResponseAddressDTO();
 		responseAddressDTO.setCity("São Paulo");
-		responseAddressDTO.setNeighborhood("Jardim Campo Grande");
+		responseAddressDTO.setNeighborhood("Vila Emir");
 		responseAddressDTO.setNumber(56);
-		responseAddressDTO.setStreet("Av. Nossa Senhora do Sabará");
+		responseAddressDTO.setStreet("Avenida Nossa Senhora do Sabará");
 		responseAddressDTO.setCep("04447-010");
 		responseAddressDTO.setState("SP");
 		return responseAddressDTO;
@@ -146,11 +146,11 @@ public final class ClassBuilder {
 	
 	public static ViaCepDTO viaCepDTOBuilder() {
 		ViaCepDTO viaCepDTO = new ViaCepDTO();
-		viaCepDTO.setCep("04447-010");;
-		viaCepDTO.setLogradouro("Av. Nossa Senhora do Sabará");;
-		viaCepDTO.setBairro("Jardim Campo Grande");;
-		viaCepDTO.setLocalidade("São Paulo");;
-		viaCepDTO.setUf("SP");;
+		viaCepDTO.setCep("04447-010");
+		viaCepDTO.setLogradouro("Avenida Nossa Senhora do Sabará");
+		viaCepDTO.setBairro("Vila Emir");
+		viaCepDTO.setLocalidade("São Paulo");
+		viaCepDTO.setUf("SP");
 		viaCepDTO.setErro(false);
 		return viaCepDTO;
 	}
